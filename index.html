@@ -722,7 +722,7 @@ E o furacão, dessa vez, pode ser de esperança.`
         stopAudio();
     }
 
-    // ======================== FUNÇÕES DE ÁUDIO ========================
+    // ======================== FUNÇÕES DE ÁUDIO (CORRIGIDAS) ========================
     function getCurrentText() {
         const page = pages[currentPage];
         let text = page.title + ". " + page.text;
@@ -734,7 +734,17 @@ E o furacão, dessa vez, pode ser de esperança.`
     }
 
     function playAudio() {
-        stopAudio();
+        // Se já está falando, não faz nada
+        if (window.speechSynthesis.speaking) return;
+        
+        // Se está pausado, apenas retoma
+        if (window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+            isPlaying = true;
+            return;
+        }
+        
+        // Se não está nem falando nem pausado, cria novo áudio
         const textToSpeak = getCurrentText();
         
         if (!window.speechSynthesis) {
@@ -800,6 +810,18 @@ E o furacão, dessa vez, pode ser de esperança.`
         if (window.speechSynthesis && window.speechSynthesis.speaking) {
             window.speechSynthesis.pause();
             isPlaying = false;
+        }
+    }
+
+    function resumeAudio() {
+        if (window.speechSynthesis && window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+            isPlaying = true;
+        } else if (!window.speechSynthesis.speaking && currentUtterance !== null) {
+            window.speechSynthesis.speak(currentUtterance);
+            isPlaying = true;
+        } else if (currentUtterance === null) {
+            playAudio();
         }
     }
 
