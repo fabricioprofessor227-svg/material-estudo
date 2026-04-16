@@ -614,6 +614,9 @@ E o furacão, dessa vez, pode ser de esperança.`
 
     // ======================== CONTROLE DE ESTADO ========================
     let currentPage = 0;
+    let currentUtterance = null;
+    let isPlaying = false;
+    let currentRate = 1.0;
     let alunoNome = "";
     let alunoTurma = "";
     let alunoBimestre = "";
@@ -719,11 +722,7 @@ E o furacão, dessa vez, pode ser de esperança.`
         stopAudio();
     }
 
-        // ======================== FUNÇÕES DE ÁUDIO (CORRIGIDAS - PAUSAR ALTERNA) ========================
-    let currentUtterance = null;
-    let isPlaying = false;
-    let currentRate = 1.0;
-
+    // ======================== FUNÇÕES DE ÁUDIO (ORIGINAIS - SEM ALTERAÇÕES) ========================
     function getCurrentText() {
         const page = pages[currentPage];
         let text = page.title + ". " + page.text;
@@ -735,22 +734,9 @@ E o furacão, dessa vez, pode ser de esperança.`
     }
 
     function playAudio() {
-        // Se já está falando, não faz nada
-        if (window.speechSynthesis.speaking) {
-            return;
-        }
-        
-        // Se está pausado, retoma
-        if (window.speechSynthesis.paused) {
-            window.speechSynthesis.resume();
-            isPlaying = true;
-            return;
-        }
-        
-        // Se não está nem falando nem pausado, inicia novo áudio
-        stopAudio(); // Garante que qualquer áudio anterior seja cancelado
-        
+        stopAudio();
         const textToSpeak = getCurrentText();
+        
         if (!window.speechSynthesis) {
             alert("Seu navegador não suporta síntese de voz.");
             return;
@@ -761,37 +747,24 @@ E o furacão, dessa vez, pode ser de esperança.`
         currentUtterance.rate = currentRate;
         currentUtterance.pitch = 1.0;
         
-        // Carrega as vozes disponíveis
         let voices = window.speechSynthesis.getVoices();
-        
-        // Função para selecionar voz feminina
-        const selectVoice = () => {
-            voices = window.speechSynthesis.getVoices();
-            const femaleVoice = voices.find(voice => 
-                (voice.lang === 'pt-BR' || voice.lang.startsWith('pt')) && 
-                (voice.name.toLowerCase().includes('feminina') || 
-                 voice.name.toLowerCase().includes('female') ||
-                 voice.name.toLowerCase().includes('maria') ||
-                 voice.name.toLowerCase().includes('francisca') ||
-                 voice.name.toLowerCase().includes('leticia') ||
-                 voice.name.toLowerCase().includes('eliza'))
-            );
-            if (femaleVoice) {
-                currentUtterance.voice = femaleVoice;
-            }
-            window.speechSynthesis.speak(currentUtterance);
-            isPlaying = true;
-        };
-        
         if (voices.length === 0) {
-            window.speechSynthesis.onvoiceschanged = selectVoice;
+            window.speechSynthesis.onvoiceschanged = () => {
+                voices = window.speechSynthesis.getVoices();
+                selectFemaleVoice(voices);
+                window.speechSynthesis.speak(currentUtterance);
+            };
         } else {
-            selectVoice();
+            selectFemaleVoice(voices);
+            window.speechSynthesis.speak(currentUtterance);
         }
+        
+        isPlaying = true;
         
         currentUtterance.onend = () => {
             isPlaying = false;
             currentUtterance = null;
+            
             if (currentPage < pages.length - 1) {
                 setTimeout(() => {
                     currentPage++;
@@ -801,29 +774,32 @@ E o furacão, dessa vez, pode ser de esperança.`
             }
         };
         
-        currentUtterance.onerror = (event) => {
-            console.error('Erro na síntese de voz:', event);
+        currentUtterance.onerror = () => {
             isPlaying = false;
             currentUtterance = null;
         };
     }
+    
+    function selectFemaleVoice(voices) {
+        const femaleVoice = voices.find(voice => 
+            (voice.lang === 'pt-BR' || voice.lang.startsWith('pt')) && 
+            (voice.name.toLowerCase().includes('feminina') || 
+             voice.name.toLowerCase().includes('female') ||
+             voice.name.toLowerCase().includes('maria') ||
+             voice.name.toLowerCase().includes('francisca') ||
+             voice.name.toLowerCase().includes('leticia') ||
+             voice.name.toLowerCase().includes('eliza'))
+        );
+        
+        if (femaleVoice) {
+            currentUtterance.voice = femaleVoice;
+        }
+    }
 
     function pauseAudio() {
-        if (!window.speechSynthesis) return;
-        
-        // Se está falando, pausa
-        if (window.speechSynthesis.speaking) {
+        if (window.speechSynthesis && window.speechSynthesis.speaking) {
             window.speechSynthesis.pause();
             isPlaying = false;
-        } 
-        // Se está pausado, retoma
-        else if (window.speechSynthesis.paused) {
-            window.speechSynthesis.resume();
-            isPlaying = true;
-        }
-        // Se não está nem falando nem pausado, inicia
-        else if (currentUtterance === null) {
-            playAudio();
         }
     }
 
@@ -844,49 +820,28 @@ E o furacão, dessa vez, pode ser de esperança.`
         } else {
             document.getElementById('speed15xBtn').classList.add('active');
         }
-        
-        // Se houver áudio em execução ou pausado, ajusta a velocidade
-        if (currentUtterance) {
-            currentUtterance.rate = currentRate;
-            
-            // Se estiver pausado, precisamos recriar o utterance com a nova velocidade
-            // porque a API não permite alterar rate em um utterance pausado
-            if (window.speechSynthesis.paused) {
-                // Salva a posição atual (aproximada)
-                const wasPaused = true;
-                // Cancela e recria com a nova velocidade
-                window.speechSynthesis.cancel();
-                
-                const textToSpeak = getCurrentText();
-                currentUtterance = new SpeechSynthesisUtterance(textToSpeak);
-                currentUtterance.lang = 'pt-BR';
-                currentUtterance.rate = currentRate;
-                currentUtterance.pitch = 1.0;
-                
-                // Configura os eventos novamente
-                currentUtterance.onend = () => {
-                    isPlaying = false;
-                    currentUtterance = null;
-                    if (currentPage < pages.length - 1) {
-                        setTimeout(() => {
-                            currentPage++;
-                            loadPage();
-                            playAudio();
-                        }, 6000);
-                    }
-                };
-                
-                currentUtterance.onerror = (event) => {
-                    console.error('Erro na síntese de voz:', event);
-                    isPlaying = false;
-                    currentUtterance = null;
-                };
-                
-                // Mantém pausado
-                isPlaying = false;
-            }
+    }
+    
+    function toggleFullscreen() {
+        const container = document.querySelector('.container');
+        if (!document.fullscreenElement) {
+            container.requestFullscreen().catch(err => {
+                console.log(`Erro ao entrar em tela cheia: ${err.message}`);
+            });
+        } else {
+            document.exitFullscreen();
         }
     }
+
+    function updateFullscreenButton() {
+        const btn = document.getElementById('fullscreenBtn');
+        if (document.fullscreenElement) {
+            btn.textContent = '✕ Sair';
+        } else {
+            btn.textContent = '⛶ Tela Cheia';
+        }
+    }
+
     // ======================== EVENTOS ========================
     document.getElementById('btnIniciarLeitura').addEventListener('click', iniciarLeitura);
 
