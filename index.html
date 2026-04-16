@@ -614,9 +614,6 @@ E o furacão, dessa vez, pode ser de esperança.`
 
     // ======================== CONTROLE DE ESTADO ========================
     let currentPage = 0;
-    let currentUtterance = null;
-    let isPlaying = false;
-    let currentRate = 1.0;
     let alunoNome = "";
     let alunoTurma = "";
     let alunoBimestre = "";
@@ -722,7 +719,11 @@ E o furacão, dessa vez, pode ser de esperança.`
         stopAudio();
     }
 
-    // ======================== FUNÇÕES DE ÁUDIO (CORRIGIDAS) ========================
+    // ======================== FUNÇÕES DE ÁUDIO (CORRIGIDAS - VERSÃO FINAL) ========================
+    let currentUtterance = null;
+    let isPlaying = false;
+    let currentRate = 1.0;
+
     function getCurrentText() {
         const page = pages[currentPage];
         let text = page.title + ". " + page.text;
@@ -734,19 +735,18 @@ E o furacão, dessa vez, pode ser de esperança.`
     }
 
     function playAudio() {
-        // Se já está falando, não faz nada
-        if (window.speechSynthesis.speaking) return;
-        
-        // Se está pausado, apenas retoma
+        if (window.speechSynthesis.speaking) {
+            return;
+        }
         if (window.speechSynthesis.paused) {
             window.speechSynthesis.resume();
             isPlaying = true;
             return;
         }
         
-        // Se não está nem falando nem pausado, cria novo áudio
-        const textToSpeak = getCurrentText();
+        stopAudio();
         
+        const textToSpeak = getCurrentText();
         if (!window.speechSynthesis) {
             alert("Seu navegador não suporta síntese de voz.");
             return;
@@ -757,24 +757,23 @@ E o furacão, dessa vez, pode ser de esperança.`
         currentUtterance.rate = currentRate;
         currentUtterance.pitch = 1.0;
         
-        let voices = window.speechSynthesis.getVoices();
-        if (voices.length === 0) {
-            window.speechSynthesis.onvoiceschanged = () => {
-                voices = window.speechSynthesis.getVoices();
-                selectFemaleVoice(voices);
-                window.speechSynthesis.speak(currentUtterance);
-            };
-        } else {
-            selectFemaleVoice(voices);
-            window.speechSynthesis.speak(currentUtterance);
+        const voices = window.speechSynthesis.getVoices();
+        const femaleVoice = voices.find(voice => 
+            (voice.lang === 'pt-BR' || voice.lang.startsWith('pt')) && 
+            (voice.name.toLowerCase().includes('feminina') || 
+             voice.name.toLowerCase().includes('female') ||
+             voice.name.toLowerCase().includes('maria') ||
+             voice.name.toLowerCase().includes('francisca') ||
+             voice.name.toLowerCase().includes('leticia') ||
+             voice.name.toLowerCase().includes('eliza'))
+        );
+        if (femaleVoice) {
+            currentUtterance.voice = femaleVoice;
         }
-        
-        isPlaying = true;
         
         currentUtterance.onend = () => {
             isPlaying = false;
             currentUtterance = null;
-            
             if (currentPage < pages.length - 1) {
                 setTimeout(() => {
                     currentPage++;
@@ -788,40 +787,15 @@ E o furacão, dessa vez, pode ser de esperança.`
             isPlaying = false;
             currentUtterance = null;
         };
-    }
-    
-    function selectFemaleVoice(voices) {
-        const femaleVoice = voices.find(voice => 
-            (voice.lang === 'pt-BR' || voice.lang.startsWith('pt')) && 
-            (voice.name.toLowerCase().includes('feminina') || 
-             voice.name.toLowerCase().includes('female') ||
-             voice.name.toLowerCase().includes('maria') ||
-             voice.name.toLowerCase().includes('francisca') ||
-             voice.name.toLowerCase().includes('leticia') ||
-             voice.name.toLowerCase().includes('eliza'))
-        );
         
-        if (femaleVoice) {
-            currentUtterance.voice = femaleVoice;
-        }
+        window.speechSynthesis.speak(currentUtterance);
+        isPlaying = true;
     }
 
     function pauseAudio() {
         if (window.speechSynthesis && window.speechSynthesis.speaking) {
             window.speechSynthesis.pause();
             isPlaying = false;
-        }
-    }
-
-    function resumeAudio() {
-        if (window.speechSynthesis && window.speechSynthesis.paused) {
-            window.speechSynthesis.resume();
-            isPlaying = true;
-        } else if (!window.speechSynthesis.speaking && currentUtterance !== null) {
-            window.speechSynthesis.speak(currentUtterance);
-            isPlaying = true;
-        } else if (currentUtterance === null) {
-            playAudio();
         }
     }
 
@@ -833,6 +807,15 @@ E o furacão, dessa vez, pode ser de esperança.`
         isPlaying = false;
     }
 
+    function resumeAudio() {
+        if (window.speechSynthesis && window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+            isPlaying = true;
+        } else if (!window.speechSynthesis.speaking && currentUtterance === null) {
+            playAudio();
+        }
+    }
+
     function setSpeed(rate) {
         currentRate = rate;
         document.getElementById('speed1xBtn').classList.remove('active');
@@ -841,6 +824,11 @@ E o furacão, dessa vez, pode ser de esperança.`
             document.getElementById('speed1xBtn').classList.add('active');
         } else {
             document.getElementById('speed15xBtn').classList.add('active');
+        }
+        
+        // Se houver áudio em execução, ajusta a velocidade em tempo real
+        if (currentUtterance && window.speechSynthesis.speaking) {
+            currentUtterance.rate = currentRate;
         }
     }
     
