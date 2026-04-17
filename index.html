@@ -722,7 +722,7 @@ E o furacão, dessa vez, pode ser de esperança.`
         stopAudio();
     }
 
-    // ======================== FUNÇÕES DE ÁUDIO (ORIGINAIS - SEM ALTERAÇÕES) ========================
+    // ======================== FUNÇÕES DE ÁUDIO ========================
     function getCurrentText() {
         const page = pages[currentPage];
         let text = page.title + ". " + page.text;
@@ -780,20 +780,42 @@ E o furacão, dessa vez, pode ser de esperança.`
         };
     }
     
+    // ======================== FUNÇÃO ALTERADA ========================
     function selectFemaleVoice(voices) {
+        // Lista de possíveis nomes de vozes femininas em português
+        const femaleVoiceNames = [
+            'Microsoft Maria',
+            'Google Português brasileiro feminina',
+            'Google português do Brasil feminina',
+            'Microsoft Daniela',
+            'Microsoft Sabrina'
+        ];
+        
+        // Primeiro, tenta encontrar por nome específico
+        for (let name of femaleVoiceNames) {
+            const voice = voices.find(v => v.name === name);
+            if (voice) {
+                currentUtterance.voice = voice;
+                return;
+            }
+        }
+        
+        // Se não encontrar por nome, procura qualquer voz feminina em português
         const femaleVoice = voices.find(voice => 
-            (voice.lang === 'pt-BR' || voice.lang.startsWith('pt')) && 
+            (voice.lang === 'pt-BR' || voice.lang === 'pt') && 
             (voice.name.toLowerCase().includes('feminina') || 
              voice.name.toLowerCase().includes('female') ||
              voice.name.toLowerCase().includes('maria') ||
              voice.name.toLowerCase().includes('francisca') ||
              voice.name.toLowerCase().includes('leticia') ||
-             voice.name.toLowerCase().includes('eliza'))
+             voice.name.toLowerCase().includes('eliza') ||
+             voice.name.toLowerCase().includes('microsoft') && voice.name.toLowerCase().includes('maria'))
         );
         
         if (femaleVoice) {
             currentUtterance.voice = femaleVoice;
         }
+        // Se não encontrar nenhuma voz feminina específica, usa a padrão do sistema
     }
 
     function pauseAudio() {
