@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>📘 Baterias Aeronáuticas - Fundamentos</title>
+    <style>
+        /* ---------- CSS PADRÃO FORMATO AUDIOBOOK 1 ---------- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Verdana', 'Arial', sans-serif;
+            background: #f5f7f6;
+            color: #1a2e2a;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            margin: 0;
+        }
+
+        .reader-wrapper {
+            width: 100%;
+            max-width: 85%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04);
+            padding: 20px 30px;
+            border: 1px solid #dde5e0;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .init-card h2 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #0f3d2e;
+        }
+
+        .subhead {
+            color: #2a5e4a;
+            margin-bottom: 28px;
+            font-style: italic;
+            border-left: 5px solid #2a7f5e;
+            padding-left: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+            color: #1e4f3e;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 16px 14px;
+            font-size: 1rem;
+            border: 1.5px solid #cbdcd2;
+            border-radius: 18px;
+            background: white;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            border-color: #197350;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(25,115,80,0.1);
+        }
+
+        .btn-primary {
+            background: #1a5e44;
+            color: white;
+            border: none;
+            padding: 18px 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 60px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-primary:disabled {
+            background: #b0c9bc;
+            cursor: not-allowed;
+        }
+
+        .fixed-header {
+            margin-bottom: 12px;
+            border-bottom: 2px solid #dde5e0;
+            padding-bottom: 8px;
+        }
+
+        .fixed-header h1 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #0f3d2e;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .progress-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1a5e44;
+            margin-bottom: 6px;
+        }
+
+        .progress-bar-bg {
+            background: #dee6e1;
+            height: 7px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #1a7a58;
+            height: 7px;
+            width: 0%;
+            border-radius: 20px;
+            transition: width 0.2s;
+        }
+
+        .text-content {
+            text-align: justify;
+            padding: 8px 0 16px;
+            max-height: 58vh;
+            overflow-y: auto;
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 0 2px;
+        }
+
+        .text-content p {
+            margin-bottom: 1em;
+        }
+
+        .text-content h2, .text-content h3, .text-content h4 {
+            margin: 1.2em 0 0.3em;
+            color: #154e3a;
+            font-weight: 600;
+        }
+
+        .text-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+            font-size: 0.9em;
+        }
+
+        .text-content th, .text-content td {
+            border: 1px solid #cbdcd2;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .text-content th {
+            background: #ecf3ef;
+            font-weight: 600;
+        }
+
+        .text-content .fonte {
+            font-style: italic;
+            font-size: 0.85em;
+            color: #5a7a6a;
+            margin-top: 0.5em;
+        }
+
+        .toolbar-single {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: 6px;
+            margin: 18px 0 14px;
+            overflow-x: auto;
+            padding: 4px 0 8px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+        }
+
+        .toolbar-single::-webkit-scrollbar {
+            height: 3px;
+            background: #e2eae5;
+        }
+
+        .tool-btn {
+            background: #ecf3ef;
+            border: 1px solid #b3cdbf;
+            color: #134531;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 12px 14px;
+            border-radius: 48px;
+            min-width: 60px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: all 0.1s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .tool-btn.small {
+            min-width: 58px;
+            padding: 12px 8px;
+        }
+
+        .tool-btn:active {
+            background: #d0e0d7;
+            transform: scale(0.96);
+        }
+
+        .tool-btn:disabled {
+            opacity: 0.4;
+            background: #e0e8e3;
+            border-color: #b6ccc1;
+            pointer-events: none;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .nav-btn {
+            background: #e6f0ea;
+            border: 1.5px solid #a2bfb1;
+            padding: 16px 18px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border-radius: 60px;
+            flex: 1;
+            text-align: center;
+            cursor: pointer;
+            color: #1a4e3a;
+        }
+
+        .nav-btn:active {
+            background: #cde0d6;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        .report-box {
+            background: #f0f7f3;
+            border-radius: 24px;
+            padding: 24px 18px;
+            margin: 20px 0;
+        }
+
+        .report-line {
+            font-size: 1.1rem;
+            margin-bottom: 14px;
+            border-bottom: 1px dashed #9dbbae;
+            padding-bottom: 8px;
+        }
+
+        .print-btn {
+            background: #1e5e44;
+            color: white;
+            border: none;
+            padding: 18px 20px;
+            font-size: 1.3rem;
+            border-radius: 60px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .options-screen {
+            text-align: center;
+        }
+
+        .options-screen h2 {
+            color: #0f3d2e;
+            margin-bottom: 30px;
+        }
+
+        .option-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .option-btn {
+            background: #1a5e44;
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            font-size: 1.2rem;
+            border-radius: 60px;
+            cursor: pointer;
+            font-weight: bold;
+            min-width: 200px;
+        }
+
+        .option-btn.secondary {
+            background: #6c8b7a;
+        }
+
+        .final-message {
+            text-align: center;
+            padding: 50px 20px;
+            font-size: 1.5rem;
+            color: #1a5e44;
+        }
+    </style>
+</head>
+<body>
+<div class="reader-wrapper">
+    <!-- TELA INICIAL -->
+    <div id="startScreen" class="screen active init-card">
+        <h2>🔋 Baterias Aeronáuticas</h2>
+        <div class="subhead">Fundamentos · NiCd · Chumbo-ácido · Li-ion</div>
+        <div class="form-group">
+            <label>📛 Nome completo</label>
+            <input type="text" id="studentName" placeholder="Digite seu nome" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>📌 Turma</label>
+            <select id="classSelect">
+                <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>📅 Bimestre</label>
+            <select id="bimesterSelect">
+                <option value="1º">1º bimestre</option><option value="2º">2º bimestre</option><option value="3º">3º bimestre</option><option value="4º">4º bimestre</option>
+            </select>
+        </div>
+        <button class="btn-primary" id="startReadingBtn" disabled>▶ Iniciar Leitura</button>
+    </div>
+
+    <!-- TELA DE LEITURA -->
+    <div id="readerScreen" class="screen">
+        <div class="fixed-header">
+            <h1 id="fixedTitle">Baterias Aeronáuticas - Fundamentos</h1>
+            <div class="progress-row">
+                <span id="pageXofY">Página 1 de 8</span>
+                <span id="progressPercent">12%</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-fill" id="progressFill" style="width: 12.5%"></div>
+            </div>
+        </div>
+
+        <div class="text-content" id="pageContent"></div>
+
+        <div class="toolbar-single" id="toolbar">
+            <button class="tool-btn" id="fontMinusBtn" title="Diminuir fonte">A−</button>
+            <button class="tool-btn" id="fontPlusBtn" title="Aumentar fonte">A+</button>
+            <button class="tool-btn small" id="voiceToggleBtn" title="Voz feminina/masculina">Fem</button>
+            <button class="tool-btn small" id="rateToggleBtn" title="Velocidade">1x</button>
+            <button class="tool-btn" id="fullscreenBtn" title="Tela cheia">⛶</button>
+            <button class="tool-btn" id="speakBtn" title="Ouvir página">🔊</button>
+            <button class="tool-btn" id="pauseBtn" title="Pausar">⏸️</button>
+            <button class="tool-btn" id="stopBtn" title="Parar">⏹️</button>
+            <button class="tool-btn" id="prevBtnInline" title="Voltar">◀</button>
+            <button class="tool-btn" id="nextBtnInline" title="Avançar">▶</button>
+        </div>
+    </div>
+
+    <!-- TELA DE ENCERRAMENTO (OPÇÕES) -->
+    <div id="optionsScreen" class="screen options-screen">
+        <h2>📖 Leitura concluída!</h2>
+        <div class="option-buttons">
+            <button class="option-btn" id="generateReportBtn">📄 Gerar relatório</button>
+            <button class="option-btn secondary" id="restartReadingBtn">🔄 Refazer a leitura</button>
+        </div>
+    </div>
+
+    <!-- TELA DE RESULTADO -->
+    <div id="reportScreen" class="screen">
+        <h2 style="color:#0f3d2e; margin-bottom: 20px;">📋 Relatório de Leitura</h2>
+        <div class="report-box" id="reportContent"></div>
+        <button class="print-btn" id="printPdfBtn">🖨️ Imprimir / Salvar PDF</button>
+    </div>
+
+    <!-- TELA FINAL -->
+    <div id="finalScreen" class="screen final-message">
+        <p>✅ Pode fechar a janela</p>
+    </div>
+</div>
+
+<script>
+    (function(){
+        // ---------- TÍTULO FIXO ----------
+        const FIXED_TITLE = "Baterias Aeronáuticas - Fundamentos";
+
+        // ---------- CONTEÚDO DAS 8 PÁGINAS ----------
+        const pageContents = [
+            // Página 1 - com título repetido no corpo
+            `<h2>${FIXED_TITLE}</h2>
+            <p>A bateria aeronáutica é responsável por uma série de funções, que incluem:</p>
+            <ul>
+                <li>Fornecer energia para partida de motores e APU.</li>
+                <li>Alimentar sistemas elétricos essenciais em solo e em voo.</li>
+                <li>Ser a fonte de emergência em caso de falha dos geradores.</li>
+            </ul>
+            <p>Contudo, a principal função da bateria aeronáutica é servir como fonte de emergência para os sistemas elétricos essenciais da aeronave quando todos os geradores falham – incluindo os geradores principais dos motores e, nas aeronaves que possuem APU, também o gerador do APU.</p>
+            <p>Diferentemente de uma bateria automotiva comum, a bateria aeronáutica precisa operar com extrema confiabilidade em condições adversas: variações extremas de temperatura, vibração constante e, muitas vezes, com pouca ventilação. Por isso, seu projeto, sua fabricação e sua manutenção seguem padrões rigorosos estabelecidos por órgãos certificadores.</p>
+            <p>Este trabalho irá detalhar as características de operação e manutenção das baterias de chumbo ácido (Lead Acid) seladas e as de níquel cádmio (NiCd), que cobrem a nossa operação no momento. Contudo eventualmente serão apresentadas algumas informações a respeito das características das baterias íons de lítio (Li).</p>`,
+            
+            // Página 2 - Tipos de baterias
+            `<h3>Tipos de baterias de uso aeronáutico</h3>
+            <p>Ao longo dos anos, três tipos de baterias dominaram o mercado aeronáutico: chumbo-ácido, níquel-cádmio e, mais recentemente, lítio. Cada uma tem suas vantagens e desvantagens, e a escolha depende da aplicação específica.</p>
+            <table>
+                <tr><th>Tipo</th><th>Características principais</th><th>Aplicação típica</th></tr>
+                <tr><td>Chumbo-ácido (Pb-acid)</td><td>Econômica, pesada, alta corrente de partida, sensível à sulfatação</td><td>Aeronaves pequenas, uso geral</td></tr>
+                <tr><td>Níquel-cádmio (NiCd)</td><td>Mais leve que chumbo-ácido, vida útil mais longa, sujeita a thermal runaway</td><td>Aeronaves comerciais e militares</td></tr>
+                <tr><td>Lítio (Li-ion / LiFePO4)</td><td>Mais leve, maior densidade energética, tecnologia emergente</td><td>Aplicações novas, tendência</td></tr>
+            </table>
+            <div class="fonte">Fonte: FAA AC 43.13-1B, Capítulo 11</div>
+            <h4>Tensão nominal por célula</h4>
+            <ul>
+                <li>Chumbo-ácido: 2,0 V</li>
+                <li>Níquel-cádmio: 1,2 V</li>
+                <li>Lítio (Li-ion): 3,6 - 3,7 V</li>
+            </ul>
+            <div class="fonte">Fonte (Pb e NiCd): FAA AC 43.13-1B, Capítulo 11</div>`,
+            
+            // Página 3 - Densidade e carregamento
+            `<h3>Densidade energética e métodos de carregamento</h3>
+            <h4>Densidade energética (Wh/kg) – comparação relativa</h4>
+            <table>
+                <tr><th>Tipo</th><th>Densidade relativa</th></tr>
+                <tr><td>Chumbo-ácido</td><td>Baixa (referência)</td></tr>
+                <tr><td>Níquel-cádmio</td><td>Média (superior ao chumbo-ácido)</td></tr>
+                <tr><td>Lítio</td><td>Alta (superior a ambos)</td></tr>
+            </table>
+            <div class="fonte">Fonte: FAA AC 43.13-1B</div>
+            <h4>Método de carregamento típico</h4>
+            <ul>
+                <li><strong>Chumbo-ácido:</strong> regulada por tensão constante (constant potential). A corrente de carga diminui à medida que a bateria se aproxima da carga total.</li>
+                <li><strong>Níquel-cádmio (NiCd):</strong> normalmente carregada com corrente constante (constant current). Evitar carga por tensão constante devido ao coeficiente de temperatura negativo (risco de thermal runaway).</li>
+            </ul>
+            <div class="fonte">Fonte (NiCd): FAA AC 43.13-1B</div>`,
+            
+            // Página 4 - Temperatura e vida útil
+            `<h3>Sensibilidade à temperatura e vida útil</h3>
+            <h4>Sensibilidade à temperatura</h4>
+            <ul>
+                <li><strong>Chumbo-ácido:</strong> desempenho reduzido em baixas temperaturas. O eletrólito pode congelar se a bateria estiver descarregada.</li>
+                <li><strong>NiCd:</strong> faixa ideal entre 16°C e 32°C (60°F – 90°F). Acima ou abaixo reduz a capacidade.</li>
+            </ul>
+            <div class="fonte">Fonte (NiCd): FAA AC 00-33A</div>
+            <h4>Vida útil (ciclos)</h4>
+            <p>Não há um limite para a vida útil pré estabelecido para uma bateria aeronáutica. Ou seja, enquanto ela estiver passando nos seus testes de performance (testes de capacidade) ela poderá ser usada. Mas isso somente é válido enquanto os fabricantes não determinarem o contrário.</p>
+            <div class="fonte">Fonte: FAA AC 43.13-1B</div>`,
+            
+            // Página 5 - Efeito memória (Parte 1) - com subtítulo
+            `<h3>Efeito memória (Parte 1)</h3>
+            <p>O efeito memória é uma perda temporária de capacidade que ocorre em baterias NiCd quando são cicladas repetidamente com sobrecarga mínima. Ou seja, em um teste de carga ela vai descarregar em menos tempo. É corrigível através de recondicionamento (descarga total (deep discharge) seguido de carga completa). O ideal é que ela passe alguns dias com todas as células curto circuitadas (shortcut).</p>
+            <div class="fonte">Fonte: MarathonNorco NiCd Manual</div>
+            <div class="fonte">Fonte: FAA AC 00-33A</div>`,
+            
+            // Página 6 - Efeito memória (Parte 2) - SEM subtítulo visível
+            `<p>O recondicionamento por deep discharge deve ser feito com cuidado para não danificar as células. O procedimento consiste em descarregar cada célula individualmente até tensão muito baixa (próxima de 0V) e manter em curto-circuito por um período prolongado (recomenda-se 24 a 72 horas). Após esse período, a bateria deve ser carregada normalmente com corrente constante. Este processo dissolve cristais de cádmio que se formam nas placas, restaurando a capacidade original. O efeito memória é reversível, diferente da degradação permanente por ciclagem excessiva.</p>
+            <div class="fonte">Fonte: MarathonNorco NiCd Manual</div>`,
+            
+            // Página 7 - Fuga térmica
+            `<h3>Fuga térmica (Thermal Runaway)</h3>
+            <p>A fuga térmica é um aumento incontrolável da temperatura da bateria que pode destruí-la. O evento ocorre quando uma bateria NiCd muito descarregada é carregada por fonte de tensão constante de alta capacidade (amperagem). O excesso de corrente causa um aumento excessivo da temperatura provocando um curto circuito, auto incineração e liberação de gases tóxicos. A alta temperatura ambiente agrava o risco.</p>
+            <h4>Mecanismo:</h4>
+            <ol>
+                <li>Corrente excessiva</li>
+                <li>Aumento da temperatura</li>
+                <li>Diminuição da resistência da(s) célula(s)</li>
+                <li>Aumento adicional da corrente</li>
+                <li>Aumento adicional da temperatura</li>
+                <li>Ciclo se repete até a destruição da bateria</li>
+            </ol>
+            <div class="fonte">Fonte: FAA AC 43.13-1B</div>`,
+            
+            // Página 8 - Conclusão
+            `<h3>Conclusão – Principais cuidados</h3>
+            <p>As baterias de níquel-cádmio exigem cuidados específicos que não se aplicam às baterias de chumbo-ácido:</p>
+            <ul>
+                <li>Atenção ao método de carga: corrente constante, nunca tensão constante.</li>
+                <li>Monitoramento da temperatura para evitar thermal runaway.</li>
+                <li>Recondicionamento periódico para corrigir efeito memória.</li>
+                <li>Shortcut prolongado (dias) para recuperação de células degradadas.</li>
+            </ul>
+            <p>Já as baterias de chumbo-ácido são mais simples e tolerantes, mas exigem controle da tensão de carga para evitar sobrecarga e perda de eletrólito.</p>
+            <p>A escolha do tipo de bateria deve considerar a aplicação, o custo e a capacidade de manutenção da oficina. O conhecimento aprofundado das características de cada tecnologia é essencial para garantir a segurança e a confiabilidade da operação aeronáutica.</p>`
+        ];
+
+        const totalPages = pageContents.length;
+        let currentPage = 0;
+        let fontSizeIndex = 2;
+        const fontSizes = [16, 26, 36, 48, 56];
+        let voiceGender = 'female';
+        let rateIndex = 0;
+        const rates = [1, 1.3, 1.5];
+        
+        let studentName = '', studentClass = 'A', bimester = '1º';
+        let startTime = null, finishTime = null;
+        
+        const synth = window.speechSynthesis;
+        let utterance = null;
+        let autoTimer = null;
+
+        // DOM elements
+        const startScr = document.getElementById('startScreen');
+        const readerScr = document.getElementById('readerScreen');
+        const optionsScr = document.getElementById('optionsScreen');
+        const reportScr = document.getElementById('reportScreen');
+        const finalScr = document.getElementById('finalScreen');
+        const startBtn = document.getElementById('startReadingBtn');
+        const nameInp = document.getElementById('studentName');
+        const classSel = document.getElementById('classSelect');
+        const bimSel = document.getElementById('bimesterSelect');
+        
+        const pageContentEl = document.getElementById('pageContent');
+        const pageXofY = document.getElementById('pageXofY');
+        const progressFill = document.getElementById('progressFill');
+        const progressPercent = document.getElementById('progressPercent');
+        
+        const fontMinus = document.getElementById('fontMinusBtn');
+        const fontPlus = document.getElementById('fontPlusBtn');
+        const voiceToggle = document.getElementById('voiceToggleBtn');
+        const rateToggle = document.getElementById('rateToggleBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const speakBtn = document.getElementById('speakBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const prevInline = document.getElementById('prevBtnInline');
+        const nextInline = document.getElementById('nextBtnInline');
+        const reportContentDiv = document.getElementById('reportContent');
+        const printPdfBtn = document.getElementById('printPdfBtn');
+        const generateReportBtn = document.getElementById('generateReportBtn');
+        const restartReadingBtn = document.getElementById('restartReadingBtn');
+
+        function updateUI() {
+            pageContentEl.innerHTML = pageContents[currentPage];
+            const num = currentPage + 1;
+            pageXofY.textContent = `Página ${num} de ${totalPages}`;
+            const pct = (num / totalPages) * 100;
+            progressFill.style.width = pct + '%';
+            progressPercent.textContent = Math.round(pct) + '%';
+            
+            prevInline.disabled = (currentPage === 0);
+            nextInline.disabled = false;
+            
+            applyFontSizeToAll();
+        }
+
+        function applyFontSizeToAll() {
+            const size = fontSizes[fontSizeIndex] + 'px';
+            pageContentEl.style.fontSize = size;
+            fontMinus.disabled = (fontSizeIndex === 0);
+            fontPlus.disabled = (fontSizeIndex === fontSizes.length - 1);
+        }
+
+        function stopSpeaking(resetTimer = true) {
+            synth.cancel();
+            if (autoTimer) {
+                clearTimeout(autoTimer);
+                autoTimer = null;
+            }
+        }
+
+        function getSelectedVoice() {
+            const voices = synth.getVoices();
+            const lang = 'pt-BR';
+            let filtered = voices.filter(v => v.lang === lang);
+            if (voiceGender === 'female') {
+                const female = filtered.filter(v => /female|woman|google uk english|samantha/i.test(v.name));
+                if (female.length) return female[0];
+            } else {
+                const male = filtered.filter(v => /male|man|google uk english|daniel/i.test(v.name));
+                if (male.length) return male[0];
+            }
+            return filtered[0] || voices[0];
+        }
+
+        function speakPage() {
+            stopSpeaking(true);
+            const text = pageContentEl.innerText;
+            if (!text.trim()) return;
+            utterance = new SpeechSynthesisUtterance(text);
+            utterance.voice = getSelectedVoice();
+            utterance.rate = rates[rateIndex];
+            utterance.onend = () => {
+                if (currentPage === totalPages - 1) return;
+                autoTimer = setTimeout(() => {
+                    if (currentPage < totalPages - 1) {
+                        goToPage(currentPage + 1, false);
+                        speakPage();
+                    }
+                }, 6000);
+            };
+            synth.speak(utterance);
+        }
+
+        function goToPage(newIdx, autoPlayAudio = false) {
+            if (newIdx < 0 || newIdx >= totalPages) return;
+            stopSpeaking(true);
+            currentPage = newIdx;
+            updateUI();
+            if (autoPlayAudio) {
+                speakPage();
+            }
+        }
+
+        // Navegação
+        prevInline.addEventListener('click', () => goToPage(currentPage - 1, false));
+        nextInline.addEventListener('click', () => {
+            if (currentPage === totalPages - 1) {
+                // Última página: vai para tela de opções
+                stopSpeaking(true);
+                readerScr.classList.remove('active');
+                optionsScr.classList.add('active');
+            } else {
+                goToPage(currentPage + 1, false);
+            }
+        });
+
+        // Ferramentas
+        fontMinus.addEventListener('click', () => {
+            if (fontSizeIndex > 0) fontSizeIndex--;
+            applyFontSizeToAll();
+        });
+        fontPlus.addEventListener('click', () => {
+            if (fontSizeIndex < fontSizes.length - 1) fontSizeIndex++;
+            applyFontSizeToAll();
+        });
+        voiceToggle.addEventListener('click', () => {
+            voiceGender = voiceGender === 'female' ? 'male' : 'female';
+            voiceToggle.textContent = voiceGender === 'female' ? 'Fem' : 'Mas';
+        });
+        rateToggle.addEventListener('click', () => {
+            rateIndex = (rateIndex + 1) % rates.length;
+            rateToggle.textContent = rateIndex === 0 ? '1x' : (rateIndex === 1 ? '1.3x' : '1.5x');
+        });
+        fullscreenBtn.addEventListener('click', () => {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                document.documentElement.requestFullscreen();
+            }
+        });
+        speakBtn.addEventListener('click', speakPage);
+        pauseBtn.addEventListener('click', () => {
+            if (synth.speaking) {
+                if (synth.paused) synth.resume();
+                else synth.pause();
+            }
+        });
+        stopBtn.addEventListener('click', () => stopSpeaking(true));
+
+        // Tela inicial
+        nameInp.addEventListener('input', () => {
+            startBtn.disabled = !nameInp.value.trim();
+        });
+        startBtn.addEventListener('click', () => {
+            studentName = nameInp.value.trim();
+            studentClass = classSel.value;
+            bimester = bimSel.value;
+            startTime = new Date();
+            startScr.classList.remove('active');
+            readerScr.classList.add('active');
+            currentPage = 0;
+            updateUI();
+        });
+
+        // Tela de opções
+        restartReadingBtn.addEventListener('click', () => {
+            optionsScr.classList.remove('active');
+            readerScr.classList.add('active');
+            currentPage = 0;
+            updateUI();
+            stopSpeaking(true);
+        });
+
+        generateReportBtn.addEventListener('click', () => {
+            finishTime = new Date();
+            const duration = Math.round((finishTime - startTime) / 60000);
+            reportContentDiv.innerHTML = `
+                <div class="report-line"><strong>👤 Aluno:</strong> ${studentName}</div>
+                <div class="report-line"><strong>📌 Turma:</strong> ${studentClass} &nbsp;|&nbsp; <strong>Bimestre:</strong> ${bimester}</div>
+                <div class="report-line"><strong>⏱️ Início:</strong> ${startTime.toLocaleString('pt-BR')}</div>
+                <div class="report-line"><strong>🏁 Fim:</strong> ${finishTime.toLocaleString('pt-BR')}</div>
+                <div class="report-line"><strong>📖 Páginas lidas:</strong> ${totalPages} de ${totalPages}</div>
+                <div class="report-line"><strong>⏳ Duração:</strong> ${duration} minuto(s)</div>
+            `;
+            optionsScr.classList.remove('active');
+            reportScr.classList.add('active');
+        });
+
+        printPdfBtn.addEventListener('click', () => {
+            window.print();
+        });
+
+        // Botão Encerrar da tela de resultado leva para tela final
+        const encerrarBtn = document.createElement('button');
+        encerrarBtn.textContent = 'Encerrar';
+        encerrarBtn.className = 'print-btn';
+        encerrarBtn.style.marginTop = '20px';
+        encerrarBtn.addEventListener('click', () => {
+            reportScr.classList.remove('active');
+            finalScr.classList.add('active');
+        });
+        document.querySelector('#reportScreen .report-box').after(encerrarBtn);
+
+        applyFontSizeToAll();
+    })();
+</script>
+</body>
+</html>
