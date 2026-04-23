@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>📘 O Alienista · Parte 3 (Final)</title>
+    <title>📘 O Alienista · Parte 2</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -27,8 +27,7 @@
             padding: 20px 30px;
             border: 1px solid #dde5e0;
         }
-        .screen { display: none; }
-        .screen.active { display: block; }
+        .screen { display: block; }
         .page-header { margin-bottom: 12px; }
         .page-header h1 { font-size: 1.7rem; font-weight: 700; color: #0f3d2e; line-height: 1.2; margin-bottom: 6px; }
         .progress-row { display: flex; align-items: center; justify-content: space-between; font-size: 0.9rem; font-weight: 600; color: #1a5e44; margin-bottom: 6px; }
@@ -68,109 +67,59 @@
         }
         .tool-btn:active { background: #d0e0d7; transform: scale(0.96); }
         .tool-btn:disabled { opacity: 0.4; background: #e0e8e3; pointer-events: none; }
-        .nav-btn {
-            background: #e6f0ea;
-            border: 1.5px solid #a2bfb1;
-            padding: 16px 18px;
-            font-size: 1.25rem;
-            font-weight: bold;
-            border-radius: 60px;
-            width: 100%;
-            text-align: center;
-            cursor: pointer;
-            color: #1a4e3a;
-            margin-top: 10px;
-        }
-        .nav-btn:active { background: #cde0d6; }
-        .btn-primary {
-            background: #1a5e44;
-            color: white;
-            border: none;
-            padding: 18px 20px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            border-radius: 60px;
-            width: 100%;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .report-box { background: #f0f7f3; border-radius: 24px; padding: 24px 18px; margin: 20px 0; }
-        .report-line { font-size: 1.1rem; margin-bottom: 14px; border-bottom: 1px dashed #9dbbae; padding-bottom: 8px; }
-        .print-btn { background: #1e5e44; color: white; border: none; padding: 18px 20px; font-size: 1.3rem; border-radius: 60px; width: 100%; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 <div class="reader-wrapper">
-    <div id="readerScreen" class="screen active">
-        <div class="page-header">
-            <h1>O Alienista</h1>
-            <div class="progress-row">
-                <span id="pageXofY">Página 7 de 9</span>
-                <span id="progressPercent">77%</span>
-            </div>
-            <div class="progress-bar-bg"><div class="progress-fill" id="progressFill" style="width: 77%"></div></div>
+    <div class="page-header">
+        <h1>O Alienista</h1>
+        <div class="progress-row">
+            <span id="pageXofY">Página 4 de 9</span>
+            <span id="progressPercent">44%</span>
         </div>
-        <div class="text-content" id="pageContent"></div>
-        <div class="toolbar-single">
-            <button class="tool-btn" id="fontMinusBtn">A−</button>
-            <button class="tool-btn" id="fontPlusBtn">A+</button>
-            <button class="tool-btn" id="voiceToggleBtn">Fem</button>
-            <button class="tool-btn" id="rateToggleBtn">1x</button>
-            <button class="tool-btn" id="fullscreenBtn">⛶</button>
-            <button class="tool-btn" id="speakBtn">🔊</button>
-            <button class="tool-btn" id="pauseBtn">⏸️</button>
-            <button class="tool-btn" id="stopBtn">⏹️</button>
-            <button class="tool-btn" id="prevBtnInline">◀</button>
-            <button class="tool-btn" id="nextBtnInline">▶</button>
-        </div>
+        <div class="progress-bar-bg"><div class="progress-fill" id="progressFill" style="width: 44%"></div></div>
     </div>
-
-    <div id="optionsScreen" class="screen">
-        <h2 style="color:#0f3d2e; margin-bottom: 20px;">📖 Leitura concluída!</h2>
-        <p style="margin-bottom: 20px;">Parabéns! Você terminou "O Alienista".</p>
-        <button class="btn-primary" id="generateReportBtn">📊 Gerar Relatório</button>
-        <button class="nav-btn" id="restartBtn">🔄 Refazer leitura</button>
-    </div>
-
-    <div id="reportScreen" class="screen">
-        <h2 style="color:#0f3d2e; margin-bottom: 20px;">📋 Relatório de Leitura</h2>
-        <div class="report-box" id="reportContent"></div>
-        <button class="print-btn" id="printPdfBtn">🖨️ Imprimir / Salvar PDF</button>
-        <button class="nav-btn" id="closeReportBtn" style="margin-top: 15px;">🔚 Encerrar</button>
-    </div>
-
-    <div id="finalScreen" class="screen">
-        <h2 style="color:#0f3d2e; text-align: center;">✅ Pode fechar a janela.</h2>
-        <p style="text-align: center; margin-top: 20px;">Leitura concluída com sucesso!</p>
+    <div class="text-content" id="pageContent"></div>
+    <div class="toolbar-single">
+        <button class="tool-btn" id="fontMinusBtn">A−</button>
+        <button class="tool-btn" id="fontPlusBtn">A+</button>
+        <button class="tool-btn" id="voiceToggleBtn">Fem</button>
+        <button class="tool-btn" id="rateToggleBtn">1x</button>
+        <button class="tool-btn" id="fullscreenBtn">⛶</button>
+        <button class="tool-btn" id="speakBtn">🔊</button>
+        <button class="tool-btn" id="pauseBtn">⏸️</button>
+        <button class="tool-btn" id="stopBtn">⏹️</button>
+        <button class="tool-btn" id="prevBtnInline">◀</button>
+        <button class="tool-btn" id="nextBtnInline">▶</button>
     </div>
 </div>
 
 <script>
     (function(){
         const pageContents = [
-            `<p><strong>CAPÍTULO III - DEUS SABE O QUE FAZ</strong></p>
-            <p>A ilustre dama, no fim de dois meses, achou-se a mais desgraçada das mulheres: caiu em profunda melancolia, ficou amarela, magra, comia pouco e suspirava a cada canto. Não ousava fazer-lhe nenhuma queixa ou reproche, porque respeitava nele o seu marido e senhor, mas padecia calada, e definhava a olhos vistos. Um dia, ao jantar, como lhe perguntasse o marido o que é que tinha, respondeu tristemente que nada; depois atreveu-se um pouco, e foi ao ponto de dizer que se considerava tão viúva como dantes. E acrescentou:</p>
-            <p>—Quem diria nunca que meia dúzia de lunáticos...</p>
-            <p>Não acabou a frase; ou antes, acabou-a levantando os olhos ao teto — os olhos, que eram a sua feição mais insinuante — negros, grandes, lavados de uma luz úmida, como os da aurora. Quanto ao gesto, era o mesmo que empregara no dia em que Simão Bacamarte a pediu em casamento. Não dizem as crônicas se D. Evarista brandiu aquela arma com o perverso intuito de degolar de uma vez a ciência, ou, pelo menos, decepar-lhe as mãos; mas a conjetura é verossímil. Em todo caso, o alienista não lhe atribuiu intenção. E não se irritou o grande homem, não ficou sequer consternado. O metal de seus olhos não deixou de ser o mesmo metal, duro, liso, eterno, nem a menor prega veio quebrar a superfície da fronte quieta como a água de Botafogo. Talvez um sorriso lhe descerrou os lábios, por entre os quais filtrou esta palavra macia como o óleo do Cântico:</p>
-            <p>—Consinto que vás dar um passeio ao Rio de Janeiro.</p>
-            <p>D. Evarista sentiu faltar-lhe o chão debaixo dos pés. Nunca dos nuncas vira o Rio de Janeiro, que posto não fosse sequer uma pálida sombra do que hoje é, todavia era alguma coisa mais do que Itaguaí. Ver o Rio de Janeiro, para ela, equivalia ao sonho do hebreu cativo. Agora, principalmente, que o marido assentara de vez naquela povoação interior, agora é que ela perdera as últimas esperanças de respirar os ares da nossa boa cidade; e justamente agora é que ele a convidava a realizar os seus desejos de menina e moça.</p>`,
+            `<p><strong>CAPÍTULO II - TORRENTES DE LOUCOS</strong></p>
+            <p>Três dias depois, numa expansão íntima com o boticário Crispim Soares, desvendou o alienista o mistério do seu coração.</p>
+            <p>—A caridade, Sr. Soares, entra decerto no meu procedimento, mas entra como tempero, como o sal das coisas, que é assim que interpreto o dito de São Paulo aos Coríntios: "Se eu conhecer quanto se pode saber, e não tiver caridade, não sou nada". O principal nesta minha obra da Casa Verde é estudar profundamente a loucura, os seus diversos graus, classificar-lhe os casos, descobrir enfim a causa do fenômeno e o remédio universal. Este é o mistério do meu coração. Creio que com isto presto um bom serviço à humanidade.</p>
+            <p>—Um excelente serviço, corrigiu o boticário.</p>
+            <p>—Sem este asilo, continuou o alienista, pouco poderia fazer; ele dá-me, porém, muito maior campo aos meus estudos.</p>
+            <p>—Muito maior, acrescentou o outro.</p>
+            <p>E tinha razão. De todas as vilas e arraiais vizinhos afluíam loucos à Casa Verde. Eram furiosos, eram mansos, eram monomaníacos, era toda a família dos deserdados do espírito. Ao cabo de quatro meses, a Casa Verde era uma povoação. Não bastaram os primeiros cubículos; mandou-se anexar uma galeria de mais trinta e sete. O Padre Lopes confessou que não imaginara a existência de tantos doidos no mundo, e menos ainda o inexplicável de alguns casos. Um, por exemplo, um rapaz bronco e vilão, que todos os dias, depois do almoço, fazia regularmente um discurso acadêmico, ornado de tropos, de antíteses, de apóstrofes, com seus recamos de grego e latim, e suas borlas de Cícero, Apuleio e Tertuliano. O vigário não queria acabar de crer. Quê! um rapaz que ele vira, três meses antes, jogando peteca na rua!</p>
+            <p>—Não digo que não, respondia-lhe o alienista; mas a verdade é o que Vossa Reverendíssima está vendo. Isto é todos os dias.</p>`,
             
-            `<p>D. Evarista não pôde dissimular o gosto de semelhante proposta. Simão Bacamarte pagou-lhe na mão e sorriu — um sorriso tanto ou quanto filosófico, além de conjugal, em que parecia traduzir-se este pensamento: "Não há remédio certo para as dores da alma; esta senhora definha, porque lhe parece que a não amo; dou-lhe o Rio de Janeiro, e consola-se". E porque era homem estudioso tomou nota da observação.</p>
-            <p>Mas um dardo atravessou o coração de D. Evarista. Conteve-se, entretanto; limitou-se a dizer ao marido que, se ele não ia, ela não iria também, porque não havia de meter-se sozinha pelas estradas.</p>
-            <p>—Irá com sua tia, redargüiu o alienista.</p>
-            <p>Note-se que D. Evarista tinha pensado nisso mesmo; mas não quisera pedi-lo nem insinuá-lo, em primeiro lugar porque seria impor grandes despesas ao marido, em segundo lugar porque era melhor, mais metódico e racional que a proposta viesse dele.</p>
-            <p>—Oh! mas o dinheiro que será preciso gastar! suspirou D. Evarista sem convicção.</p>
-            <p>—Que importa? Temos ganho muito, disse o marido. Ainda ontem o escriturário prestou-me contas. Queres ver?</p>
-            <p>E levou-a aos livros. D. Evarista ficou deslumbrada. Era uma via-láctea de algarismos. E depois levou-a às arcas, onde estava o dinheiro. Deus! eram montes de ouro, eram mil cruzados sobre mil cruzados, dobrões sobre dobrões; era a opulência.</p>
-            <p>Enquanto ela comia o ouro com os seus olhos negros, o alienista fitava-a, e dizia-lhe ao ouvido com a mais pérfida das alusões:</p>
-            <p>—Quem diria que meia dúzia de lunáticos...</p>
-            <p>D. Evarista compreendeu, sorriu e respondeu com muita resignação:</p>
-            <p>—Deus sabe o que faz!</p>`,
+            `<p>Os loucos por amor eram três ou quatro, mas só dois espantavam pelo curioso do delírio. O primeiro, um Falcão, rapaz de vinte e cinco anos, supunha-se estrela-d’alva, abria os braços e alargava as pernas, para dar-lhes certa feição de raios, e ficava assim horas esquecidas a perguntar se o sol já tinha saído para ele recolher-se. O outro andava sempre, sempre, sempre, à roda das salas ou do pátio, ao longo dos corredores, à procura do fim do mundo. Era um desgraçado, a quem a mulher deixou por seguir um peralvilho. Mal descobrira a fuga, armou-se de uma garrucha, e saiu-lhes no encalço; achou-os duas horas depois, ao pé de uma lagoa, matou-os a ambos com os maiores requintes de crueldade.</p>
+            <p>O ciúme satisfez-se, mas o vingado estava louco. E então começou aquela ânsia de ir ao fim do mundo à cata dos fugitivos.</p>
+            <p>A mania das grandezas tinha exemplares notáveis. O mais notável era um pobre-diabo, filho de um algibebe, que narrava às paredes (porque não olhava nunca para nenhuma pessoa) toda a sua genealogia, que era esta:</p>
+            <p>—Deus engendrou um ovo, o ovo engendrou a espada, a espada engendrou Davi, Davi engendrou a púrpura, a púrpura engendrou o duque, o duque engendrou o marquês, o marquês engendrou o conde, que sou eu.</p>
+            <p>Dava uma pancada na testa, um estalo com os dedos, e repetia cinco, seis vezes seguidas: —Deus engendrou um ovo, o ovo, etc.</p>
+            <p>Outro da mesma espécie era um escrivão, que se vendia por mordomo do rei; outro era um boiadeiro de Minas, cuja mania era distribuir boiadas a toda a gente, dava trezentas cabeças a um, seiscentas a outro, mil e duzentas a outro, e não acabava mais.</p>`,
             
-            `<p>Três meses depois efetuava-se a jornada. D. Evarista, a tia, a mulher do boticário, um sobrinho deste, um padre que o alienista conhecera em Lisboa, e que de aventura achava-se em Itaguaí, cinco ou seis pajens, quatro mucamas, tal foi a comitiva que a população viu dali sair em certa manhã do mês de maio. As despedidas foram tristes para todos, menos para o alienista. Conquanto as lágrimas de D. Evarista fossem abundantes e sinceras, não chegaram a abalá-lo. Homem de ciência, e só de ciência, nada o consternava fora da ciência; e se alguma coisa o preocupava naquela ocasião, se ele deixava correr pela multidão um olhar inquieto e policial, não era outra coisa mais do que a idéia de que algum demente podia achar-se ali misturado com a gente de juízo.</p>
-            <p>—Adeus! soluçaram enfim as damas e o boticário.</p>
-            <p>E partiu a comitiva. Crispim Soares, ao tornar a casa, trazia os olhos entre as duas orelhas da besta ruana em que vinha montado; Simão Bacamarte alongava os seus pelo horizonte adiante, deixando ao cavalo a responsabilidade do regresso. Imagem vivaz do gênio e do vulgo! Um fita o presente, com todas as suas lágrimas e saudades, outro devassa o futuro com todas as suas auroras.</p>
-            <p><em>Fim.</em></p>`
+            `<p>Não falo dos casos de monomania religiosa; apenas citarei um sujeito que, chamando-se João de Deus, dizia agora ser o deus João, e prometia o reino dos céus a quem o adorasse, e as penas do inferno aos outros; e depois desse, o licenciado Garcia, que não dizia nada, porque imaginava que no dia em que chegasse a proferir uma só palavra, todas as estrelas se despegariam do céu e abrasariam a terra; tal era o poder que recebera de Deus.</p>
+            <p>Assim o escrevia ele no papel que o alienista lhe mandava dar, menos por caridade do que por interesse científico.</p>
+            <p>Que, na verdade, a paciência do alienista era ainda mais extraordinária do que todas as manias hospedadas na Casa Verde; nada menos que assombrosa. Simão Bacamarte começou por organizar um pessoal de administração; e, aceitando essa idéia ao boticário Crispim Soares, aceitou-lhe também dois sobrinhos, a quem incumbiu da execução de um regimento que lhes deu, aprovado pela Câmara, da distribuição da comida e da roupa, e assim também da escrita, etc. Era o melhor que podia fazer, para somente cuidar do seu ofício.</p>
+            <p>—A Casa Verde, disse ele ao vigário, é agora uma espécie de mundo, em que há o governo temporal e o governo espiritual.</p>
+            <p>E o Padre Lopes ria deste pio trocado — e acrescentava, — com o único fim de dizer também uma chalaça: —Deixe estar, deixe estar, que hei de mandá-lo denunciar ao papa.</p>
+            <p>Uma vez desonerado da administração, o alienista procedeu a uma vasta classificação dos seus enfermos. Dividiu-os primeiramente em duas classes principais: os furiosos e os mansos; daí passou às subclasses, monomanias, delírios, alucinações diversas.</p>
+            <p>Isto feito, começou um estudo aturado e contínuo; analisava os hábitos de cada louco, as horas de acesso, as aversões, as simpatias, as palavras, os gestos, as tendências; inquiria da vida dos enfermos, profissão, costumes, circunstâncias da revelação mórbida, acidentes da infância e da mocidade, doenças de outra espécie, antecedentes na família, uma devassa, enfim, como a não faria o mais atilado corregedor.</p>`
         ];
 
         let currentPage = 0;
@@ -178,17 +127,11 @@
         const fontSizes = [16, 26, 36, 48, 56];
         let rateIndex = 0;
         const rates = [1, 1.3, 1.5];
-        let finishTime = null;
         
         const synth = window.speechSynthesis;
         let utterance = null;
         let autoTimer = null;
 
-        // DOM elements
-        const readerScr = document.getElementById('readerScreen');
-        const optionsScr = document.getElementById('optionsScreen');
-        const reportScr = document.getElementById('reportScreen');
-        const finalScr = document.getElementById('finalScreen');
         const pageContentEl = document.getElementById('pageContent');
         const pageXofY = document.getElementById('pageXofY');
         const progressFill = document.getElementById('progressFill');
@@ -203,13 +146,8 @@
         const stopBtn = document.getElementById('stopBtn');
         const prevInline = document.getElementById('prevBtnInline');
         const nextInline = document.getElementById('nextBtnInline');
-        const generateReportBtn = document.getElementById('generateReportBtn');
-        const restartBtn = document.getElementById('restartBtn');
-        const printPdfBtn = document.getElementById('printPdfBtn');
-        const closeReportBtn = document.getElementById('closeReportBtn');
-        const reportContentDiv = document.getElementById('reportContent');
 
-        function getGlobalPageNumber() { return currentPage + 7; }
+        function getGlobalPageNumber() { return currentPage + 4; }
         
         function updateUI() {
             pageContentEl.innerHTML = pageContents[currentPage];
@@ -261,13 +199,12 @@
             updateUI();
         }
 
-        readerScr.classList.add('active');
         currentPage = 0;
         updateUI();
 
         prevInline.addEventListener('click', () => {
             if (currentPage === 0) {
-                window.location.href = 'https://fabricioprofessor227-svg.github.io/material-estudo/oalienista02.html';
+                window.location.href = 'https://fabricioprofessor227-svg.github.io/material-estudo/oalienista01.html';
             } else {
                 goToPage(currentPage - 1);
             }
@@ -275,54 +212,10 @@
         
         nextInline.addEventListener('click', () => {
             if (currentPage === 2) {
-                stopSpeaking(true);
-                readerScr.classList.remove('active');
-                optionsScr.classList.add('active');
+                window.location.href = 'https://fabricioprofessor227-svg.github.io/material-estudo/oalienista03.html';
             } else {
                 goToPage(currentPage + 1);
             }
-        });
-        
-        generateReportBtn.addEventListener('click', () => {
-            finishTime = new Date();
-            const inicioStr = localStorage.getItem('inicioLeitura');
-            const nome = localStorage.getItem('alunoNome') || 'Não informado';
-            const turma = localStorage.getItem('alunoTurma') || 'Não informada';
-            const bimestre = localStorage.getItem('alunoBimestre') || 'Não informado';
-            
-            let duracao = 'Não disponível';
-            if (inicioStr) {
-                const inicio = new Date(inicioStr);
-                const diffMin = Math.round((finishTime - inicio) / 60000);
-                duracao = `${diffMin} minuto(s)`;
-            }
-            
-            reportContentDiv.innerHTML = `
-                <div class="report-line"><strong>👤 Aluno:</strong> ${nome}</div>
-                <div class="report-line"><strong>📌 Turma:</strong> ${turma} &nbsp;|&nbsp; <strong>Bimestre:</strong> ${bimestre}</div>
-                <div class="report-line"><strong>🏁 Hora de conclusão:</strong> ${finishTime.toLocaleString('pt-BR')}</div>
-                <div class="report-line"><strong>📖 Páginas lidas:</strong> 9 de 9</div>
-                <div class="report-line"><strong>⏳ Duração total:</strong> ${duracao}</div>
-                <div class="report-line"><strong>📘 Obra:</strong> O Alienista (Machado de Assis)</div>
-            `;
-            
-            optionsScr.classList.remove('active');
-            reportScr.classList.add('active');
-        });
-        
-        restartBtn.addEventListener('click', () => {
-            stopSpeaking(true);
-            currentPage = 0;
-            updateUI();
-            optionsScr.classList.remove('active');
-            readerScr.classList.add('active');
-        });
-        
-        printPdfBtn.addEventListener('click', () => window.print());
-        
-        closeReportBtn.addEventListener('click', () => {
-            reportScr.classList.remove('active');
-            finalScr.classList.add('active');
         });
         
         fontMinus.addEventListener('click', () => { if (fontSizeIndex > 0) fontSizeIndex--; applyFontSizeToAll(); });
