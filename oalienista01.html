@@ -2,15 +2,10 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>📘 O Alienista · Parte 1</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Verdana', 'Arial', sans-serif;
             background: #f5f7f6;
@@ -21,55 +16,23 @@
             align-items: center;
             justify-content: center;
             padding: 12px;
-            margin: 0;
         }
-
         .reader-wrapper {
             width: 100%;
             max-width: 85%;
             margin: 0 auto;
             background: white;
             border-radius: 28px;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.04);
             padding: 20px 30px;
             border: 1px solid #dde5e0;
         }
-
-        .screen {
-            display: none;
-        }
-
-        .screen.active {
-            display: block;
-        }
-
-        .init-card h2 {
-            font-size: 1.9rem;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: #0f3d2e;
-        }
-
-        .subhead {
-            color: #2a5e4a;
-            margin-bottom: 28px;
-            font-style: italic;
-            border-left: 5px solid #2a7f5e;
-            padding-left: 16px;
-        }
-
-        .form-group {
-            margin-bottom: 22px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 6px;
-            color: #1e4f3e;
-        }
-
+        .screen { display: none; }
+        .screen.active { display: block; }
+        .init-card h2 { font-size: 1.9rem; font-weight: 600; margin-bottom: 6px; color: #0f3d2e; }
+        .subhead { color: #2a5e4a; margin-bottom: 28px; font-style: italic; border-left: 5px solid #2a7f5e; padding-left: 16px; }
+        .form-group { margin-bottom: 22px; }
+        label { display: block; font-weight: 600; font-size: 0.95rem; margin-bottom: 6px; color: #1e4f3e; }
         input, select {
             width: 100%;
             padding: 16px 14px;
@@ -79,13 +42,7 @@
             background: white;
             font-family: inherit;
         }
-
-        input:focus, select:focus {
-            border-color: #197350;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(25,115,80,0.1);
-        }
-
+        input:focus, select:focus { border-color: #197350; outline: none; box-shadow: 0 0 0 3px rgba(25,115,80,0.1); }
         .btn-primary {
             background: #1a5e44;
             color: white;
@@ -98,49 +55,12 @@
             cursor: pointer;
             margin-top: 10px;
         }
-
-        .btn-primary:disabled {
-            background: #b0c9bc;
-            cursor: not-allowed;
-        }
-
-        .page-header {
-            margin-bottom: 12px;
-        }
-
-        .page-header h1 {
-            font-size: 1.7rem;
-            font-weight: 700;
-            color: #0f3d2e;
-            line-height: 1.2;
-            margin-bottom: 6px;
-        }
-
-        .progress-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #1a5e44;
-            margin-bottom: 6px;
-        }
-
-        .progress-bar-bg {
-            background: #dee6e1;
-            height: 7px;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            background: #1a7a58;
-            height: 7px;
-            width: 0%;
-            border-radius: 20px;
-            transition: width 0.2s;
-        }
-
+        .btn-primary:disabled { background: #b0c9bc; cursor: not-allowed; }
+        .page-header { margin-bottom: 12px; }
+        .page-header h1 { font-size: 1.7rem; font-weight: 700; color: #0f3d2e; line-height: 1.2; margin-bottom: 6px; }
+        .progress-row { display: flex; align-items: center; justify-content: space-between; font-size: 0.9rem; font-weight: 600; color: #1a5e44; margin-bottom: 6px; }
+        .progress-bar-bg { background: #dee6e1; height: 7px; border-radius: 20px; overflow: hidden; }
+        .progress-fill { background: #1a7a58; height: 7px; width: 0%; border-radius: 20px; transition: width 0.2s; }
         .text-content {
             text-align: justify;
             padding: 8px 0 16px;
@@ -148,19 +68,8 @@
             overflow-y: auto;
             font-size: 16px;
             line-height: 1.5;
-            margin: 0 2px;
         }
-
-        .text-content p {
-            margin-bottom: 1em;
-        }
-
-        .text-content h2, .text-content h3, .text-content h4 {
-            margin: 1.2em 0 0.3em;
-            color: #154e3a;
-            font-weight: 600;
-        }
-
+        .text-content p { margin-bottom: 1em; }
         .toolbar-single {
             display: flex;
             flex-wrap: nowrap;
@@ -169,15 +78,7 @@
             margin: 18px 0 14px;
             overflow-x: auto;
             padding: 4px 0 8px;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
         }
-
-        .toolbar-single::-webkit-scrollbar {
-            height: 3px;
-            background: #e2eae5;
-        }
-
         .tool-btn {
             background: #ecf3ef;
             border: 1px solid #b3cdbf;
@@ -189,35 +90,11 @@
             min-width: 60px;
             text-align: center;
             cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            transition: all 0.1s;
             white-space: nowrap;
             flex-shrink: 0;
         }
-
-        .tool-btn.small {
-            min-width: 58px;
-            padding: 12px 8px;
-        }
-
-        .tool-btn:active {
-            background: #d0e0d7;
-            transform: scale(0.96);
-        }
-
-        .tool-btn:disabled {
-            opacity: 0.4;
-            background: #e0e8e3;
-            border-color: #b6ccc1;
-            pointer-events: none;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 12px;
-            margin-top: 8px;
-        }
-
+        .tool-btn:active { background: #d0e0d7; transform: scale(0.96); }
+        .tool-btn:disabled { opacity: 0.4; background: #e0e8e3; pointer-events: none; }
         .nav-btn {
             background: #e6f0ea;
             border: 1.5px solid #a2bfb1;
@@ -225,50 +102,17 @@
             font-size: 1.25rem;
             font-weight: bold;
             border-radius: 60px;
-            flex: 1;
+            width: 100%;
             text-align: center;
             cursor: pointer;
             color: #1a4e3a;
+            margin-top: 10px;
         }
-
-        .nav-btn:active {
-            background: #cde0d6;
-        }
-
-        .nav-btn:disabled {
-            opacity: 0.45;
-            pointer-events: none;
-        }
-
-        .report-box {
-            background: #f0f7f3;
-            border-radius: 24px;
-            padding: 24px 18px;
-            margin: 20px 0;
-        }
-
-        .report-line {
-            font-size: 1.1rem;
-            margin-bottom: 14px;
-            border-bottom: 1px dashed #9dbbae;
-            padding-bottom: 8px;
-        }
-
-        .print-btn {
-            background: #1e5e44;
-            color: white;
-            border: none;
-            padding: 18px 20px;
-            font-size: 1.3rem;
-            border-radius: 60px;
-            width: 100%;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .hidden {
-            display: none !important;
-        }
+        .nav-btn:active { background: #cde0d6; }
+        .report-box { background: #f0f7f3; border-radius: 24px; padding: 24px 18px; margin: 20px 0; }
+        .report-line { font-size: 1.1rem; margin-bottom: 14px; border-bottom: 1px dashed #9dbbae; padding-bottom: 8px; }
+        .print-btn { background: #1e5e44; color: white; border: none; padding: 18px 20px; font-size: 1.3rem; border-radius: 60px; width: 100%; cursor: pointer; font-weight: bold; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
@@ -276,22 +120,18 @@
     <!-- TELA INICIAL -->
     <div id="startScreen" class="screen active init-card">
         <h2>📘 O Alienista</h2>
-        <div class="subhead">Machado de Assis</div>
+        <div class="subhead">Machado de Assis · Parte 1</div>
         <div class="form-group">
             <label>📛 Nome completo</label>
             <input type="text" id="studentName" placeholder="Digite seu nome" autocomplete="off">
         </div>
         <div class="form-group">
             <label>📌 Turma</label>
-            <select id="classSelect">
-                <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
-            </select>
+            <select id="classSelect"><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select>
         </div>
         <div class="form-group">
             <label>📅 Bimestre</label>
-            <select id="bimesterSelect">
-                <option value="1º">1º bimestre</option><option value="2º">2º bimestre</option><option value="3º">3º bimestre</option><option value="4º">4º bimestre</option>
-            </select>
+            <select id="bimesterSelect"><option value="1º">1º bimestre</option><option value="2º">2º bimestre</option><option value="3º">3º bimestre</option><option value="4º">4º bimestre</option></select>
         </div>
         <button class="btn-primary" id="startReadingBtn" disabled>▶ Iniciar Leitura</button>
     </div>
@@ -301,44 +141,37 @@
         <div class="page-header">
             <h1>O Alienista</h1>
             <div class="progress-row">
-                <span id="pageXofY">Página 1 de 9</span>
-                <span id="progressPercent">11%</span>
+                <span id="pageXofY">Página 1 de 3</span>
+                <span id="progressPercent">33%</span>
             </div>
-            <div class="progress-bar-bg">
-                <div class="progress-fill" id="progressFill" style="width: 11.1%"></div>
-            </div>
+            <div class="progress-bar-bg"><div class="progress-fill" id="progressFill" style="width: 33%"></div></div>
         </div>
-
         <div class="text-content" id="pageContent"></div>
-
-        <div class="toolbar-single" id="toolbar">
-            <button class="tool-btn" id="fontMinusBtn" title="Diminuir fonte">A−</button>
-            <button class="tool-btn" id="fontPlusBtn" title="Aumentar fonte">A+</button>
-            <button class="tool-btn small" id="voiceToggleBtn" title="Voz feminina/masculina">Fem</button>
-            <button class="tool-btn small" id="rateToggleBtn" title="Velocidade">1x</button>
-            <button class="tool-btn" id="fullscreenBtn" title="Tela cheia">⛶</button>
-            <button class="tool-btn" id="speakBtn" title="Ouvir página">🔊</button>
-            <button class="tool-btn" id="pauseBtn" title="Pausar">⏸️</button>
-            <button class="tool-btn" id="stopBtn" title="Parar">⏹️</button>
-            <button class="tool-btn" id="prevBtnInline" title="Voltar">◀</button>
-            <button class="tool-btn" id="nextBtnInline" title="Avançar">▶</button>
+        <div class="toolbar-single">
+            <button class="tool-btn" id="fontMinusBtn">A−</button>
+            <button class="tool-btn" id="fontPlusBtn">A+</button>
+            <button class="tool-btn" id="voiceToggleBtn">Fem</button>
+            <button class="tool-btn" id="rateToggleBtn">1x</button>
+            <button class="tool-btn" id="fullscreenBtn">⛶</button>
+            <button class="tool-btn" id="speakBtn">🔊</button>
+            <button class="tool-btn" id="pauseBtn">⏸️</button>
+            <button class="tool-btn" id="stopBtn">⏹️</button>
+            <button class="tool-btn" id="prevBtnInline">◀</button>
+            <button class="tool-btn" id="nextBtnInline">▶</button>
         </div>
     </div>
 
-    <!-- TELA DE ENCERRAMENTO (opções) -->
+    <!-- TELA DE OPÇÕES (fim da Parte 1) -->
     <div id="optionsScreen" class="screen">
-        <h2 style="color:#0f3d2e; margin-bottom: 20px;">📖 Leitura concluída!</h2>
-        <button class="btn-primary" id="nextPartBtn" style="margin-bottom: 15px;">▶ Próxima Parte</button>
-        <button class="nav-btn" id="restartBtn" style="background:#e6f0ea;">🔄 Refazer a leitura</button>
+        <h2 style="color:#0f3d2e; margin-bottom: 20px;">📖 Fim da Parte 1</h2>
+        <button class="btn-primary" id="nextPartBtn">▶ Próxima Parte</button>
+        <button class="nav-btn" id="restartBtn">🔄 Refazer leitura</button>
     </div>
 </div>
 
 <script>
     (function(){
-        const totalPages = 9; // 9 páginas no total (3 partes)
-        
         const pageContents = [
-            // Página 1 - Capítulo I (parte 1)
             `<p><strong>CAPÍTULO I - DE COMO ITAGUAÍ GANHOU UMA CASA DE ORATES</strong></p>
             <p>As crônicas da vila de Itaguaí dizem que em tempos remotos vivera ali um certo médico, o Dr. Simão Bacamarte, filho da nobreza da terra e o maior dos médicos do Brasil, de Portugal e das Espanhas. Estudara em Coimbra e Pádua. Aos trinta e quatro anos regressou ao Brasil, não podendo el-rei alcançar dele que ficasse em Coimbra, regendo a universidade, ou em Lisboa, expedindo os negócios da monarquia.</p>
             <p>—A ciência, disse ele a Sua Majestade, é o meu emprego único; Itaguaí é o meu universo.</p>
@@ -346,7 +179,6 @@
             <p>Simão Bacamarte explicou-lhe que D. Evarista reunia condições fisiológicas e anatômicas de primeira ordem, digeria com facilidade, dormia regularmente, tinha bom pulso, e excelente vista; estava assim apta para dar-lhe filhos robustos, sãos e inteligentes. Se além dessas prendas — únicas dignas da preocupação de um sábio — D. Evarista era mal composta de feições, longe de lastimá-lo, agradecia-o a Deus, porquanto não corria o risco de preterir os interesses da ciência na contemplação exclusiva, miúda e vulgar da consorte.</p>
             <p>D. Evarista mentiu às esperanças do Dr. Bacamarte, não lhe deu filhos robustos nem mofinos. A índole natural da ciência é a longanimidade; o nosso médico esperou três anos, depois quatro, depois cinco. Ao cabo desse tempo fez um estudo profundo da matéria, releu todos os escritores árabes e outros, que trouxera para Itaguaí, enviou consultas às universidades italianas e alemãs, e acabou por aconselhar à mulher um regímen alimentício especial. A ilustre dama, nutrida exclusivamente com a bela carne de porco de Itaguaí, não atendeu às admoestações do esposo; e à sua resistência — explicável, mas inqualificável — devemos a total extinção da dinastia dos Bacamartes.</p>`,
             
-            // Página 2 - Capítulo I (parte 2)
             `<p>Mas a ciência tem o inefável dom de curar todas as mágoas; o nosso médico mergulhou inteiramente no estudo e na prática da medicina. Foi então que um dos recantos desta lhe chamou especialmente a atenção — o recanto psíquico, o exame de patologia cerebral. Não havia na colônia, e ainda no reino, uma só autoridade em semelhante matéria, mal explorada, ou quase inexplorada. Simão Bacamarte compreendeu que a ciência lusitana, e particularmente a brasileira, podia cobrir-se de "louros imarcescíveis" — expressão usada por ele mesmo, mas em um arroubo de intimidade doméstica; exteriormente era modesto, segundo convém aos sabedores.</p>
             <p>—A saúde da alma, bradou ele, é a ocupação mais digna do médico.</p>
             <p>—Do verdadeiro médico, emendou Crispim Soares, boticário da vila, e um dos seus amigos e comensais.</p>
@@ -355,25 +187,17 @@
             <p>—Olhe, D. Evarista, disse-lhe o Padre Lopes, vigário do lugar, veja se seu marido dá um passeio ao Rio de Janeiro. Isso de estudar sempre, sempre, não é bom, vira o juízo.</p>
             <p>D. Evarista ficou aterrada. Foi ter com o marido, disse-lhe "que estava com desejos", um principalmente, o de vir ao Rio de Janeiro e comer tudo o que a ele lhe parecesse adequado a certo fim. Mas aquele grande homem, com a rara sagacidade que o distinguia, penetrou a intenção da esposa e redargüiu-lhe sorrindo que não tivesse medo.</p>`,
             
-            // Página 3 - Capítulo II (parte 1)
-            `<p><strong>CAPÍTULO II - TORRENTES DE LOUCOS</strong></p>
-            <p>Três dias depois, numa expansão íntima com o boticário Crispim Soares, desvendou o alienista o mistério do seu coração.</p>
-            <p>—A caridade, Sr. Soares, entra decerto no meu procedimento, mas entra como tempero, como o sal das coisas, que é assim que interpreto o dito de São Paulo aos Coríntios: "Se eu conhecer quanto se pode saber, e não tiver caridade, não sou nada". O principal nesta minha obra da Casa Verde é estudar profundamente a loucura, os seus diversos graus, classificar-lhe os casos, descobrir enfim a causa do fenômeno e o remédio universal. Este é o mistério do meu coração. Creio que com isto presto um bom serviço à humanidade.</p>
-            <p>—Um excelente serviço, corrigiu o boticário.</p>
-            <p>—Sem este asilo, continuou o alienista, pouco poderia fazer; ele dá-me, porém, muito maior campo aos meus estudos.</p>
-            <p>—Muito maior, acrescentou o outro.</p>
-            <p>E tinha razão. De todas as vilas e arraiais vizinhos afluíam loucos à Casa Verde. Eram furiosos, eram mansos, eram monomaníacos, era toda a família dos deserdados do espírito. Ao cabo de quatro meses, a Casa Verde era uma povoação. Não bastaram os primeiros cubículos; mandou-se anexar uma galeria de mais trinta e sete. O Padre Lopes confessou que não imaginara a existência de tantos doidos no mundo, e menos ainda o inexplicável de alguns casos. Um, por exemplo, um rapaz bronco e vilão, que todos os dias, depois do almoço, fazia regularmente um discurso acadêmico, ornado de tropos, de antíteses, de apóstrofes, com seus recamos de grego e latim, e suas borlas de Cícero, Apuleio e Tertuliano. O vigário não queria acabar de crer. Quê! um rapaz que ele vira, três meses antes, jogando peteca na rua!</p>
-            <p>—Não digo que não, respondia-lhe o alienista; mas a verdade é o que Vossa Reverendíssima está vendo. Isto é todos os dias.</p>`
+            `<p>Dali foi à Câmara, onde os vereadores debatiam a proposta, e defendeu-a com tanta eloqüência, que a maioria resolveu autorizá-lo ao que pedira, votando ao mesmo tempo um imposto destinado a subsidiar o tratamento, alojamento e mantimento dos doidos pobres. A matéria do imposto não foi fácil achá-la; tudo estava tributado em Itaguaí. Depois de longos estudos, assentou-se em permitir o uso de dois penachos nos cavalos dos enterros. Quem quisesse emplumar os cavalos de um coche mortuário pagaria dois tostões à Câmara, repetindo-se tantas vezes esta quantia quantas fossem as horas decorridas entre a do falecimento e a da última bênção na sepultura. O escrivão perdeu-se nos cálculos aritméticos do rendimento possível da nova taxa; e um dos vereadores, que não acreditava na empresa do médico, pediu que se relevasse o escrivão de um trabalho inútil.</p>
+            <p>— Os cálculos não são precisos, disse ele, porque o Dr. Bacamarte não arranja nada. Quem é que viu agora meter todos os doidos dentro da mesma casa?</p>
+            <p>Enganava-se o digno magistrado; o médico arranjou tudo. Uma vez empossado da licença começou logo a construir a casa. Era na Rua Nova, a mais bela rua de Itaguaí naquele tempo; tinha cinqüenta janelas por lado, um pátio no centro, e numerosos cubículos para os hóspedes. Como fosse grande arabista, achou no Corão que Maomé declara veneráveis os doidos, pela consideração de que Alá lhes tira o juízo para que não pequem. A idéia pareceu-lhe bonita e profunda, e ele a fez gravar no frontispício da casa; mas, como tinha medo ao vigário, e por tabela ao bispo, atribuiu o pensamento a Benedito VIII, merecendo com essa fraude aliás pia, que o Padre Lopes lhe contasse, ao almoço, a vida daquele pontífice eminente.</p>
+            <p>A Casa Verde foi o nome dado ao asilo, por alusão à cor das janelas, que pela primeira vez apareciam verdes em Itaguaí. Inaugurou-se com imensa pompa; de todas as vilas e povoações próximas, e até remotas, e da própria cidade do Rio de Janeiro, correu gente para assistir às cerimônias, que duraram sete dias. Muitos dementes já estavam recolhidos; e os parentes tiveram ocasião de ver o carinho paternal e a caridade cristã com que eles iam ser tratados.</p>`
         ];
 
-        // Estado
         let currentPage = 0;
         let fontSizeIndex = 2;
         const fontSizes = [16, 26, 36, 48, 56];
-        let voiceGender = 'female';
         let rateIndex = 0;
         const rates = [1, 1.3, 1.5];
-        
         let studentName = '', studentClass = 'A', bimester = '1º';
         let startTime = null;
         
@@ -389,12 +213,10 @@
         const nameInp = document.getElementById('studentName');
         const classSel = document.getElementById('classSelect');
         const bimSel = document.getElementById('bimesterSelect');
-        
         const pageContentEl = document.getElementById('pageContent');
         const pageXofY = document.getElementById('pageXofY');
         const progressFill = document.getElementById('progressFill');
         const progressPercent = document.getElementById('progressPercent');
-        
         const fontMinus = document.getElementById('fontMinusBtn');
         const fontPlus = document.getElementById('fontPlusBtn');
         const voiceToggle = document.getElementById('voiceToggleBtn');
@@ -411,19 +233,16 @@
         function updateUI() {
             pageContentEl.innerHTML = pageContents[currentPage];
             const num = currentPage + 1;
-            pageXofY.textContent = `Página ${num} de ${totalPages}`;
-            const pct = (num / totalPages) * 100;
+            pageXofY.textContent = `Página ${num} de 3`;
+            const pct = (num / 3) * 100;
             progressFill.style.width = pct + '%';
             progressPercent.textContent = Math.round(pct) + '%';
-            
             prevInline.disabled = (currentPage === 0);
-            
             applyFontSizeToAll();
         }
 
         function applyFontSizeToAll() {
-            const size = fontSizes[fontSizeIndex] + 'px';
-            pageContentEl.style.fontSize = size;
+            pageContentEl.style.fontSize = fontSizes[fontSizeIndex] + 'px';
             fontMinus.disabled = (fontSizeIndex === 0);
             fontPlus.disabled = (fontSizeIndex === fontSizes.length - 1);
         }
@@ -442,9 +261,9 @@
             utterance.voice = vozes.find(v => v.lang === 'pt-BR') || vozes[0];
             utterance.rate = rates[rateIndex];
             utterance.onend = () => {
-                if (currentPage === totalPages - 1) return;
+                if (currentPage === 2) return;
                 autoTimer = setTimeout(() => {
-                    if (currentPage < totalPages - 1) {
+                    if (currentPage < 2) {
                         currentPage++;
                         updateUI();
                         speakPage();
@@ -455,7 +274,7 @@
         }
 
         function goToPage(newIdx) {
-            if (newIdx < 0 || newIdx >= totalPages) return;
+            if (newIdx < 0 || newIdx >= 3) return;
             stopSpeaking(true);
             currentPage = newIdx;
             updateUI();
@@ -469,6 +288,10 @@
             studentClass = classSel.value;
             bimester = bimSel.value;
             startTime = new Date();
+            localStorage.setItem('alunoNome', studentName);
+            localStorage.setItem('alunoTurma', studentClass);
+            localStorage.setItem('alunoBimestre', bimester);
+            localStorage.setItem('inicioLeitura', startTime.toISOString());
             startScr.classList.remove('active');
             readerScr.classList.add('active');
             currentPage = 0;
@@ -478,8 +301,7 @@
         prevInline.addEventListener('click', () => goToPage(currentPage - 1));
         
         nextInline.addEventListener('click', () => {
-            if (currentPage === totalPages - 1) {
-                // Última página da Parte 1 → vai para tela de opções
+            if (currentPage === 2) {
                 stopSpeaking(true);
                 readerScr.classList.remove('active');
                 optionsScr.classList.add('active');
@@ -489,12 +311,10 @@
         });
         
         nextPartBtn.addEventListener('click', () => {
-            // Vai para a Parte 2 (oalienista02)
             window.location.href = 'https://fabricioprofessor227-svg.github.io/material-estudo/oalienista02.html';
         });
         
         restartBtn.addEventListener('click', () => {
-            // Refaz a leitura da Parte 1
             stopSpeaking(true);
             currentPage = 0;
             updateUI();
@@ -502,38 +322,13 @@
             readerScr.classList.add('active');
         });
         
-        fontMinus.addEventListener('click', () => {
-            if (fontSizeIndex > 0) fontSizeIndex--;
-            applyFontSizeToAll();
-        });
-        
-        fontPlus.addEventListener('click', () => {
-            if (fontSizeIndex < fontSizes.length - 1) fontSizeIndex++;
-            applyFontSizeToAll();
-        });
-        
-        voiceToggle.addEventListener('click', () => {
-            voiceGender = voiceGender === 'female' ? 'male' : 'female';
-            voiceToggle.textContent = voiceGender === 'female' ? 'Fem' : 'Mas';
-        });
-        
-        rateToggle.addEventListener('click', () => {
-            rateIndex = (rateIndex + 1) % rates.length;
-            rateToggle.textContent = rateIndex === 0 ? '1x' : (rateIndex === 1 ? '1.3x' : '1.5x');
-        });
-        
-        fullscreenBtn.addEventListener('click', () => {
-            document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
-        });
-        
+        fontMinus.addEventListener('click', () => { if (fontSizeIndex > 0) fontSizeIndex--; applyFontSizeToAll(); });
+        fontPlus.addEventListener('click', () => { if (fontSizeIndex < fontSizes.length - 1) fontSizeIndex++; applyFontSizeToAll(); });
+        voiceToggle.addEventListener('click', () => {});
+        rateToggle.addEventListener('click', () => { rateIndex = (rateIndex + 1) % rates.length; rateToggle.textContent = rateIndex === 0 ? '1x' : (rateIndex === 1 ? '1.3x' : '1.5x'); });
+        fullscreenBtn.addEventListener('click', () => { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); });
         speakBtn.addEventListener('click', speakPage);
-        
-        pauseBtn.addEventListener('click', () => {
-            if (synth.speaking) {
-                synth.paused ? synth.resume() : synth.pause();
-            }
-        });
-        
+        pauseBtn.addEventListener('click', () => { if (synth.speaking) synth.paused ? synth.resume() : synth.pause(); });
         stopBtn.addEventListener('click', () => stopSpeaking(true));
         
         applyFontSizeToAll();
@@ -541,4 +336,3 @@
 </script>
 </body>
 </html>
-
