@@ -95,23 +95,6 @@
         }
         .tool-btn:active { background: #d0e0d7; transform: scale(0.96); }
         .tool-btn:disabled { opacity: 0.4; background: #e0e8e3; pointer-events: none; }
-        .nav-btn {
-            background: #e6f0ea;
-            border: 1.5px solid #a2bfb1;
-            padding: 16px 18px;
-            font-size: 1.25rem;
-            font-weight: bold;
-            border-radius: 60px;
-            width: 100%;
-            text-align: center;
-            cursor: pointer;
-            color: #1a4e3a;
-            margin-top: 10px;
-        }
-        .report-box { background: #f0f7f3; border-radius: 24px; padding: 24px 18px; margin: 20px 0; }
-        .report-line { font-size: 1.1rem; margin-bottom: 14px; border-bottom: 1px dashed #9dbbae; padding-bottom: 8px; }
-        .print-btn { background: #1e5e44; color: white; border: none; padding: 18px 20px; font-size: 1.3rem; border-radius: 60px; width: 100%; cursor: pointer; font-weight: bold; }
-        .hidden { display: none !important; }
     </style>
 </head>
 <body>
@@ -224,6 +207,13 @@
             progressFill.style.width = pct + '%';
             progressPercent.textContent = Math.round(pct) + '%';
             prevInline.disabled = (currentPage === 0);
+            if (currentPage === 2) {
+                nextInline.style.background = "#1a5e44";
+                nextInline.style.color = "white";
+            } else {
+                nextInline.style.background = "#ecf3ef";
+                nextInline.style.color = "#134531";
+            }
             applyFontSizeToAll();
         }
 
@@ -269,14 +259,10 @@
         nameInp.addEventListener('input', () => startBtn.disabled = !nameInp.value.trim());
         
         startBtn.addEventListener('click', () => {
-            const nome = nameInp.value.trim();
-            const turma = classSel.value;
-            const bimestre = bimSel.value;
-            const inicio = new Date();
-            localStorage.setItem('alunoNome', nome);
-            localStorage.setItem('alunoTurma', turma);
-            localStorage.setItem('alunoBimestre', bimestre);
-            localStorage.setItem('inicioLeitura', inicio.toISOString());
+            localStorage.setItem('alunoNome', nameInp.value.trim());
+            localStorage.setItem('alunoTurma', classSel.value);
+            localStorage.setItem('alunoBimestre', bimSel.value);
+            localStorage.setItem('inicioLeitura', new Date().toISOString());
             startScr.classList.remove('active');
             readerScr.classList.add('active');
             currentPage = 0;
