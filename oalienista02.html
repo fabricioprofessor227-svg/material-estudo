@@ -27,7 +27,6 @@
             padding: 20px 30px;
             border: 1px solid #dde5e0;
         }
-        .screen { display: block; }
         .page-header { margin-bottom: 12px; }
         .page-header h1 { font-size: 1.7rem; font-weight: 700; color: #0f3d2e; line-height: 1.2; margin-bottom: 6px; }
         .progress-row { display: flex; align-items: center; justify-content: space-between; font-size: 0.9rem; font-weight: 600; color: #1a5e44; margin-bottom: 6px; }
@@ -106,7 +105,7 @@
             <p>E tinha razão. De todas as vilas e arraiais vizinhos afluíam loucos à Casa Verde. Eram furiosos, eram mansos, eram monomaníacos, era toda a família dos deserdados do espírito. Ao cabo de quatro meses, a Casa Verde era uma povoação. Não bastaram os primeiros cubículos; mandou-se anexar uma galeria de mais trinta e sete. O Padre Lopes confessou que não imaginara a existência de tantos doidos no mundo, e menos ainda o inexplicável de alguns casos. Um, por exemplo, um rapaz bronco e vilão, que todos os dias, depois do almoço, fazia regularmente um discurso acadêmico, ornado de tropos, de antíteses, de apóstrofes, com seus recamos de grego e latim, e suas borlas de Cícero, Apuleio e Tertuliano. O vigário não queria acabar de crer. Quê! um rapaz que ele vira, três meses antes, jogando peteca na rua!</p>
             <p>—Não digo que não, respondia-lhe o alienista; mas a verdade é o que Vossa Reverendíssima está vendo. Isto é todos os dias.</p>`,
             
-            `<p>Os loucos por amor eram três ou quatro, mas só dois espantavam pelo curioso do delírio. O primeiro, um Falcão, rapaz de vinte e cinco anos, supunha-se estrela-d’alva, abria os braços e alargava as pernas, para dar-lhes certa feição de raios, e ficava assim horas esquecidas a perguntar se o sol já tinha saído para ele recolher-se. O outro andava sempre, sempre, sempre, à roda das salas ou do pátio, ao longo dos corredores, à procura do fim do mundo. Era um desgraçado, a quem a mulher deixou por seguir um peralvilho. Mal descobrira a fuga, armou-se de uma garrucha, e saiu-lhes no encalço; achou-os duas horas depois, ao pé de uma lagoa, matou-os a ambos com os maiores requintes de crueldade.</p>
+            `<p>Os loucos por amor eram três ou quatro, mas só dois espantavam pelo curioso do delírio. O primeiro, um Falcão, rapaz de vinte e cinco anos, supunha-se estrela-d'alva, abria os braços e alargava as pernas, para dar-lhes certa feição de raios, e ficava assim horas esquecidas a perguntar se o sol já tinha saído para ele recolher-se. O outro andava sempre, sempre, sempre, à roda das salas ou do pátio, ao longo dos corredores, à procura do fim do mundo. Era um desgraçado, a quem a mulher deixou por seguir um peralvilho. Mal descobrira a fuga, armou-se de uma garrucha, e saiu-lhes no encalço; achou-os duas horas depois, ao pé de uma lagoa, matou-os a ambos com os maiores requintes de crueldade.</p>
             <p>O ciúme satisfez-se, mas o vingado estava louco. E então começou aquela ânsia de ir ao fim do mundo à cata dos fugitivos.</p>
             <p>A mania das grandezas tinha exemplares notáveis. O mais notável era um pobre-diabo, filho de um algibebe, que narrava às paredes (porque não olhava nunca para nenhuma pessoa) toda a sua genealogia, que era esta:</p>
             <p>—Deus engendrou um ovo, o ovo engendrou a espada, a espada engendrou Davi, Davi engendrou a púrpura, a púrpura engendrou o duque, o duque engendrou o marquês, o marquês engendrou o conde, que sou eu.</p>
@@ -156,7 +155,6 @@
             const pct = (num / 9) * 100;
             progressFill.style.width = pct + '%';
             progressPercent.textContent = Math.round(pct) + '%';
-            prevInline.disabled = (currentPage === 0);
             applyFontSizeToAll();
         }
 
