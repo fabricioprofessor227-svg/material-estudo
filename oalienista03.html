@@ -70,7 +70,17 @@
         .tool-btn:disabled { opacity: 0.4; background: #e0e8e3; pointer-events: none; }
         .report-box { background: #f0f7f3; border-radius: 24px; padding: 24px 18px; margin: 20px 0; }
         .report-line { font-size: 1.1rem; margin-bottom: 14px; border-bottom: 1px dashed #9dbbae; padding-bottom: 8px; }
-        .print-btn { background: #1e5e44; color: white; border: none; padding: 18px 20px; font-size: 1.3rem; border-radius: 60px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .print-btn {
+            background: #1e5e44;
+            color: white;
+            border: none;
+            padding: 18px 20px;
+            font-size: 1.3rem;
+            border-radius: 60px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: bold;
+        }
         .nav-btn {
             background: #e6f0ea;
             border: 1.5px solid #a2bfb1;
@@ -88,6 +98,7 @@
 </head>
 <body>
 <div class="reader-wrapper">
+    <!-- TELA DE LEITURA -->
     <div id="readerScreen" class="screen active">
         <div class="page-header">
             <h1>O Alienista</h1>
@@ -112,6 +123,7 @@
         </div>
     </div>
 
+    <!-- TELA DE RELATÓRIO -->
     <div id="reportScreen" class="screen">
         <h2 style="color:#0f3d2e; margin-bottom: 20px;">📋 Relatório de Leitura</h2>
         <div class="report-box" id="reportContent"></div>
@@ -119,6 +131,7 @@
         <button class="nav-btn" id="closeReportBtn">🔚 Encerrar</button>
     </div>
 
+    <!-- TELA FINAL -->
     <div id="finalScreen" class="screen">
         <h2 style="color:#0f3d2e; text-align: center;">✅ Pode fechar a janela.</h2>
         <p style="text-align: center; margin-top: 20px;">Leitura concluída com sucesso!</p>
@@ -163,6 +176,7 @@
         let utterance = null;
         let autoTimer = null;
 
+        // Elementos
         const readerScr = document.getElementById('readerScreen');
         const reportScr = document.getElementById('reportScreen');
         const finalScr = document.getElementById('finalScreen');
@@ -193,7 +207,6 @@
             const pct = (num / 9) * 100;
             progressFill.style.width = pct + '%';
             progressPercent.textContent = Math.round(pct) + '%';
-            prevInline.disabled = (currentPage === 0);
             applyFontSizeToAll();
         }
 
@@ -249,12 +262,14 @@
         
         nextInline.addEventListener('click', () => {
             if (currentPage === 2) {
-                // Gera relatório e finaliza
-                const fim = new Date();
+                // Última página: Gera relatório
+                stopSpeaking(true);
+                
                 const nome = localStorage.getItem('alunoNome') || 'Não informado';
                 const turma = localStorage.getItem('alunoTurma') || 'Não informada';
                 const bimestre = localStorage.getItem('alunoBimestre') || 'Não informado';
                 const inicioStr = localStorage.getItem('inicioLeitura');
+                const fim = new Date();
                 
                 let duracao = 'Não disponível';
                 if (inicioStr) {
@@ -271,6 +286,7 @@
                     <div class="report-line"><strong>⏳ Duração total:</strong> ${duracao}</div>
                     <div class="report-line"><strong>📘 Obra:</strong> O Alienista (Machado de Assis)</div>
                 `;
+                
                 readerScr.classList.remove('active');
                 reportScr.classList.add('active');
             } else {
